@@ -4,7 +4,7 @@ import React, { FC, ReactNode } from 'react'
 import Dots from '../Dots'
 import Loader from '../Loader'
 
-export type ButtonColor = 'red' | 'blue' | 'pink' | 'purple' | 'gradient' | 'gray'
+export type ButtonColor = 'red' | 'blue' | 'pink' | 'purple' | 'gradient' | 'gray' | 'white'
 export type ButtonSize = 'xs' | 'sm' | 'lg' | 'default' | 'none'
 export type ButtonVariant = 'outlined' | 'filled' | 'empty'
 
@@ -98,14 +98,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={classNames(
           VARIANT[variant]['default'],
           // @ts-ignore TYPE NEEDS FIXING
-          VARIANT[variant][color],
+          // VARIANT[variant][color],
           // @ts-ignore TYPE NEEDS FIXING
           SIZE[size],
           // @ts-ignore TYPE NEEDS FIXING
           variant !== 'empty' ? DIMENSIONS[size] : '',
           fullWidth ? 'w-full' : '',
           'font-bold flex items-center justify-center gap-1',
-          className
+          className,
+          'bg-[#864f1d]'
         )}
         {...rest}
       >

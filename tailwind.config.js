@@ -29,9 +29,9 @@ module.exports = {
           r: 'to right',
         },
         colors: {
-          'blue-pink': ['#0993ecBF', '#f338c3BF'],
-          'blue-pink-hover': ['#0993ec99', '#f338c399'],
-          'pink-red-light-brown': ['#FE5A75', '#FEC464'],
+          'blue-pink': ['#864f1d'],
+          'blue-pink-hover': ['#864f1d'],
+          'pink-red-light-brown': ['#d8c0a6'],
         },
         background: {
           'dark-1000': '#0D0415',
@@ -169,7 +169,7 @@ module.exports = {
         'dark-500': '#223D5E',
         'dark-400': '#545f7b',
         'low-emphesis': '#575757',
-        primary: '#BFBFBF',
+        primary: '#864f1d',
         secondary: '#7F7F7F',
         'high-emphesis': '#E3E3E3',
         'higher-emphesis': '#FCFCFD',

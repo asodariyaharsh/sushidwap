@@ -4,10 +4,10 @@ import React, { FC } from 'react'
 
 import Desktop from './Desktop'
 
-const Header: FC = () => {
+const Header: FC = ({ children }) => {
   const isDesktop = useDesktopMediaQuery()
 
-  return <>{isDesktop ? <Desktop /> : <Mobile />}</>
+  return isDesktop ? <Desktop>{children}</Desktop> : <Mobile />
 }
 
 export default Header

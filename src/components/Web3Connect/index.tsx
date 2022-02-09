@@ -8,7 +8,7 @@ import { Activity } from 'react-feather'
 
 import Button, { ButtonProps } from '../Button'
 
-export default function Web3Connect({ color = 'gray', size = 'sm', className = '', ...rest }: ButtonProps) {
+export default function Web3Connect({ color = 'white', size = 'sm', className = '', ...rest }: ButtonProps) {
   const { i18n } = useLingui()
   const toggleWalletModal = useWalletModalToggle()
   const { error } = useWeb3React()
@@ -28,7 +28,7 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
       onClick={toggleWalletModal}
       variant="outlined"
       color={color}
-      className={classNames(className, '!border-none')}
+      className={classNames('bg-[#864f1d]', '!border-none')}
       size={size}
       {...rest}
     >
