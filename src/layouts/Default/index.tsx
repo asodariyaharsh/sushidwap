@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   const isDesktop = useDesktopMediaQuery()
   return (
     <div className="z-0 flex flex-col items-center w-full h-screen">
-      {true ? (
+      {isDesktop ? (
         <Desktop>
           <Main>{children}</Main>
           <Popups />
