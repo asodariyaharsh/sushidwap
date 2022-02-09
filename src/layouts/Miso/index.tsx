@@ -5,6 +5,7 @@ import Header from 'app/components/Header'
 import Main from 'app/components/Main'
 import Popups from 'app/components/Popups'
 import { classNames } from 'app/functions'
+import { sidebarContext } from 'pages/_app'
 import React, { FC, ReactNode } from 'react'
 
 interface MisoHeaderProps extends React.HTMLProps<HTMLHeadElement> {
@@ -60,14 +61,14 @@ export const MisoBody: FC<MisoBodyProps> = ({ children, className, maxWidth = '7
 }
 
 const MisoLayout: FC = ({ children }) => {
+  const { open } = React.useContext(sidebarContext)
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col items-center w-full flex flex-grow">
+      <div className={`flex flex-col items-center w-full flex flex-grow ${open && "lg:pl-[225px] pl-0"}`}>
         <div className="w-full flex-grow flex flex-col">{children}</div>
         <Popups />
       </div>
-      <Footer />
     </div>
   )
 }

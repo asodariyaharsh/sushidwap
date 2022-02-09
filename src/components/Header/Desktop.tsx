@@ -7,6 +7,7 @@ import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useETHBalances } from 'app/state/wallet/hooks'
 import Link from 'next/link'
+import { sidebarContext } from 'pages/_app'
 import React, { FC, Fragment, useState } from 'react'
 
 import { NavigationItem } from './NavigationItem'
@@ -17,8 +18,12 @@ const Desktop: FC = ({ children }) => {
   const menu = useMenu()
   const { account, chainId, library } = useActiveWeb3React()
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-  const [open, setOpen] = useState(false)
   const isCoinbaseWallet = useIsCoinbaseWallet()
+
+  const { open, setOpen } = React.useContext(sidebarContext)
+
+  console.log(open, "sidebar");
+
 
   return (
     <>
@@ -27,9 +32,8 @@ const Desktop: FC = ({ children }) => {
         style={{ backgroundColor: '#191818' }}
       >
         <div
-          className={`flex flex-grow justify-between horizontal-header  ${
-            open ? 'ml-[225px] w-[calc(100%_-_225px)]' : 'w-full'
-          }`}
+          className={`flex flex-grow justify-between horizontal-header  ${open ? 'ml-[225px] w-[calc(100%_-_225px)]' : 'w-full'
+            }`}
           style={{ backgroundColor: '#191818' }}
         >
           <div className="p-2 hover:bg-white/10 rounded-full m-4">
@@ -101,7 +105,7 @@ const Desktop: FC = ({ children }) => {
           </div>
           {/* </Dialog> */}
         </Transition.Root>
-        <div className={`height-100 content ${open ? 'ml-[225px] w-[calc(100%_-_225px)] content-wrap' : 'w-full'}`}>
+        <div className={`height-100 content ${open ? 'ml-[225px] w-[calc(100%_-_225px)]' : 'w-full'}`}>
           {children}
         </div>
       </header>

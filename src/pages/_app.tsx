@@ -25,7 +25,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -38,10 +38,17 @@ if (typeof window !== 'undefined' && !!window.ethereum) {
   window.ethereum.autoRefreshOnNetworkChange = false
 }
 
+export const sidebarContext = React.createContext({
+  open: true,
+  setOpen: (state: any) => { }
+})
+
 // @ts-ignore TYPE NEEDS FIXING
 function MyApp({ Component, pageProps, fallback, err }) {
   const router = useRouter()
   const { locale, events } = router
+
+  const [open, setOpen] = useState(true)
 
   useEffect(() => {
     // @ts-ignore TYPE NEEDS FIXING
@@ -130,40 +137,42 @@ function MyApp({ Component, pageProps, fallback, err }) {
           `,
         }}
       />
-      <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <Web3ProviderNetwork getLibrary={getLibrary}>
-            <Web3ReactManager>
-              {/*@ts-ignore TYPE NEEDS FIXING*/}
-              <ReduxProvider store={store}>
-                <PersistGate loading={<Dots>loading</Dots>} persistor={persistor}>
-                  <>
-                    <ListsUpdater />
-                    <UserUpdater />
-                    <ApplicationUpdater />
-                    <MulticallUpdater />
-                  </>
-                  <RecoilRoot>
-                    <SyncWithRedux />
-                    <Provider>
-                      <Layout>
-                        <Guard>
-                          {/* TODO: Added alert Jan 25. Delete component after a few months. */}
-                          <MultichainExploitAlertModal />
-                          {/*@ts-ignore TYPE NEEDS FIXING*/}
-                          <Component {...pageProps} err={err} />
-                        </Guard>
-                        <Portals />
-                      </Layout>
-                    </Provider>
-                    <TransactionUpdater />
-                  </RecoilRoot>
-                </PersistGate>
-              </ReduxProvider>
-            </Web3ReactManager>
-          </Web3ProviderNetwork>
-        </Web3ReactProvider>
-      </I18nProvider>
+      <sidebarContext.Provider value={{ open, setOpen }}>
+        <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Web3ProviderNetwork getLibrary={getLibrary}>
+              <Web3ReactManager>
+                {/*@ts-ignore TYPE NEEDS FIXING*/}
+                <ReduxProvider store={store}>
+                  <PersistGate loading={<Dots>loading</Dots>} persistor={persistor}>
+                    <>
+                      <ListsUpdater />
+                      <UserUpdater />
+                      <ApplicationUpdater />
+                      <MulticallUpdater />
+                    </>
+                    <RecoilRoot>
+                      <SyncWithRedux />
+                      <Provider>
+                        <Layout>
+                          <Guard>
+                            {/* TODO: Added alert Jan 25. Delete component after a few months. */}
+                            <MultichainExploitAlertModal />
+                            {/*@ts-ignore TYPE NEEDS FIXING*/}
+                            <Component {...pageProps} err={err} />
+                          </Guard>
+                          <Portals />
+                        </Layout>
+                      </Provider>
+                      <TransactionUpdater />
+                    </RecoilRoot>
+                  </PersistGate>
+                </ReduxProvider>
+              </Web3ReactManager>
+            </Web3ProviderNetwork>
+          </Web3ReactProvider>
+        </I18nProvider>
+      </sidebarContext.Provider>
     </>
   )
 }
